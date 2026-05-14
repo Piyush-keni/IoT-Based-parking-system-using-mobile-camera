@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DBIT EXTC | Semester Workshop 2025–26</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f0f8ff;
+  --card: #ffffff;
+  --border: #e0e7ff;
+  --border2: #c7d2fe;
+  --arduino: #3b82f6;
+  --pcb: #1e40af;
+  --web: #1d4ed8;
+  --text: #1e293b;
+  --muted: #64748b;
+  --dim: #475569;
+  --heading: 'Bebas Neue', sans-serif;
+  --body: 'DM Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--body); min-height: 100vh; overflow-x: hidden; }
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none; z-index: 0;
+}
+
+/* HEADER */
+.site-header {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 60%, #7dd3fc 100%);
+  border-bottom: 1px solid #1a2d50;
+  padding: 0 28px;
+  position: relative; z-index: 50;
+  display: flex; align-items: center; gap: 18px;
+  min-height: 72px;
+}
+.header-logo {
+  width: 46px; height: 46px;
+  background: linear-gradient(135deg, #0d2051, #1a3a80);
+  border: 2px solid #2a4a90; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--heading); font-size: 1.1rem; color: #7ab3ff;
+  letter-spacing: 1px; flex-shrink: 0;
+}
+.header-info { flex: 1; }
+.header-info .society { font-size: 0.65rem; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+.header-info .college  { font-size: 1rem; font-weight: 700; color: #e8eeff; line-height: 1.2; }
+.header-info .dept     { font-size: 0.7rem; font-family: var(--mono); color: #3b82f6; margin-top: 1px; }
+.header-badge {
+  background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 6px; padding: 5px 12px;
+  font-size: 0.68rem; font-family: var(--mono); color: var(--arduino); white-space: nowrap;
+}
+
+/* HERO */
+.hero {
+  position: relative; z-index: 2;
+  text-align: center; padding: 52px 20px 36px; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; top: -60px; left: 50%;
+  transform: translateX(-50%); width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 50px; padding: 5px 16px;
+  font-size: 0.7rem; font-family: var(--mono); color: var(--arduino);
+  letter-spacing: 2px; margin-bottom: 20px;
+}
+.hero-eyebrow::before { content: '◆'; font-size: 0.5rem; }
+.hero h1 {
+  font-family: var(--heading); font-size: clamp(2.6rem, 6vw, 4.2rem);
+  letter-spacing: 3px; line-height: 1; color: white; margin-bottom: 14px;
+}
+.hero h1 span { color: var(--arduino); }
+.hero-sub { color: var(--dim); font-size: 0.92rem; font-weight: 300; max-width: 520px; margin: 0 auto 28px; line-height: 1.7; }
+
+/* TEAM */
+.team-row {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 8px; padding: 0 20px 40px; position: relative; z-index: 2;
+}
+.chip {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 50px; padding: 6px 18px;
+  font-size: 0.78rem; color: var(--dim);
+  display: flex; align-items: center; gap: 6px;
+  transition: border-color 0.2s;
+}
+.chip:hover { border-color: var(--border2); }
+.chip.lead { border-color: rgba(59,130,246,0.4); color: var(--arduino); }
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* NAV */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(8,12,20,0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex; max-width: 960px;
+  margin: 0 auto; padding: 0 20px;
+}
+.nav-tab {
+  flex: 1; padding: 0 12px; height: 58px;
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  cursor: pointer; font-size: 0.78rem; font-weight: 700;
+  font-family: var(--body); letter-spacing: 0.5px;
+  color: var(--muted); border-bottom: 3px solid transparent;
+  transition: all 0.22s ease; user-select: none; text-transform: uppercase;
+}
+.nav-tab:hover { color: var(--dim); }
+.nav-tab .tab-num { font-family: var(--mono); font-size: 0.6rem; opacity: 0.5; }
+.nav-tab.active[data-tab="arduino"] { color: var(--arduino); border-color: var(--arduino); }
+.nav-tab.active[data-tab="pcb"]     { color: var(--pcb);     border-color: var(--pcb); }
+.nav-tab.active[data-tab="web"]     { color: var(--web);     border-color: var(--web); }
+
+/* PAGES */
+.page {
+  display: none; max-width: 960px;
+  margin: 0 auto; padding: 44px 24px 100px;
+  position: relative; z-index: 2;
+  animation: fadeSlide 0.35s ease;
+}
+.page.active { display: block; }
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* PAGE HEADER */
+.page-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 36px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap; gap: 12px;
+}
+.trade-label {
+  font-size: 0.65rem; font-family: var(--mono);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px;
+}
+.trade-label.green  { color: var(--arduino); }
+.trade-label.amber  { color: var(--pcb); }
+.trade-label.blue   { color: var(--web); }
+.page-title {
+  font-family: var(--heading); font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 2px; line-height: 1; color: white;
+}
+.page-num {
+  font-family: var(--heading); font-size: 4rem;
+  color: var(--border2); letter-spacing: 2px; line-height: 1; user-select: none;
+}
+
+/* CARD */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 30px; margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-label {
+  font-size: 0.62rem; font-family: var(--mono);
+  letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.card-label::before { content: ''; width: 20px; height: 2px; border-radius: 2px; background: currentColor; opacity: 0.6; }
+.card-label.green  { color: var(--arduino); }
+.card-label.amber  { color: var(--pcb); }
+.card-label.blue   { color: var(--web); }
+.card-label.muted  { color: var(--muted); }
+.card h3 { font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 12px; }
+.card p  { color: var(--dim); font-size: 0.88rem; line-height: 1.85; font-weight: 300; }
+
+/* TWO-COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+/* SPECS */
+.specs-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; margin-top: 6px; }
+.spec-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.spec-k { font-size: 0.62rem; font-family: var(--mono); color: var(--muted); letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
+.spec-v { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+
+/* ALGO */
+.algo { list-style: none; }
+.algo li { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: start; }
+.algo li:last-child { border-bottom: none; }
+.algo-n {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+}
+.algo-n.green  { background: rgba(59,130,246,0.12);  color: var(--arduino); border: 1px solid rgba(59,130,246,0.2); }
+.algo-n.amber  { background: rgba(30,64,175,0.12); color: var(--pcb);     border: 1px solid rgba(30,64,175,0.2); }
+.algo-n.blue   { background: rgba(29,78,216,0.12); color: var(--web);     border: 1px solid rgba(29,78,216,0.2); }
+.algo-title { font-weight: 600; font-size: 0.88rem; color: var(--text); margin-bottom: 3px; }
+.algo-desc  { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+/* BLOCK DIAGRAM */
+.block-diagram {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px 20px; margin-top: 6px;
+}
+.bd-title {
+  text-align: center; font-family: var(--mono); font-size: 0.7rem;
+  color: var(--muted); letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase;
+}
+.bd-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+@media (max-width: 500px) { .bd-cols { grid-template-columns: 1fr; } }
+.bd-col-label {
+  text-align: center; font-size: 0.65rem; font-family: var(--mono);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 14px; padding: 4px 0; border-radius: 4px;
+}
+.bd-col-label.green { background: rgba(59,130,246,0.1);  color: var(--arduino); }
+.bd-col-label.blue  { background: rgba(29,78,216,0.1); color: var(--web); }
+.bd-node { text-align: center; padding: 10px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+.bd-node.filled-green { background: rgba(59,130,246,0.15);  border: 1px solid rgba(59,130,246,0.3); }
+.bd-node.filled-blue  { background: rgba(29,78,216,0.15); border: 1px solid rgba(29,78,216,0.3); }
+.bd-node.filled-light { background: rgba(255,255,255,0.04); border: 1px solid var(--border2); }
+.bd-arrow { text-align: center; color: var(--muted); font-size: 0.9rem; line-height: 1.2; margin: 2px 0; }
+.bd-footer {
+  margin-top: 16px; background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.25); border-radius: 8px;
+  padding: 10px 16px; text-align: center;
+  font-size: 0.78rem; color: var(--arduino); font-weight: 500; letter-spacing: 0.5px;
+}
+
+/* PIPELINE */
+.pipeline { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+.pipe-node { background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 8px 14px; font-size: 0.75rem; color: var(--dim); white-space: nowrap; }
+.pipe-arrow { color: var(--muted); font-size: 0.9rem; flex-shrink: 0; }
+
+/* IMAGE */
+.img-frame { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.img-frame img { width: 100%; display: block; }
+.img-frame .img-cap { padding: 10px 14px; font-size: 0.72rem; font-family: var(--mono); color: var(--muted); border-top: 1px solid var(--border); text-align: center; }
+
+.divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+/* BULLET */
+.blist { list-style: none; }
+.blist li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: 0.87rem; color: var(--dim); line-height: 1.7; }
+.blist li::before { content: '→'; font-family: var(--mono); font-size: 0.75rem; flex-shrink: 0; margin-top: 3px; }
+.blist li.green::before { color: var(--arduino); }
+.blist li.amber::before { color: var(--pcb); }
+.blist li.blue::before  { color: var(--web); }
+
+/* TAGS */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tag { padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-family: var(--mono); border: 1px solid; }
+.tag.green { background: rgba(59,130,246,0.08);  border-color: rgba(59,130,246,0.25);  color: var(--arduino); }
+.tag.amber { background: rgba(30,64,175,0.08); border-color: rgba(30,64,175,0.25); color: var(--pcb); }
+.tag.blue  { background: rgba(29,78,216,0.08); border-color: rgba(29,78,216,0.25); color: var(--web); }
+
+/* RESULTS */
+.results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
+.result-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.result-val { font-family: var(--heading); font-size: 2rem; letter-spacing: 1px; line-height: 1; margin-bottom: 4px; }
+.result-val.green { color: var(--arduino); }
+.result-val.amber { color: var(--pcb); }
+.result-val.blue  { color: var(--web); }
+.result-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+/* FOOTER */
+.footer { position: relative; z-index: 2; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; font-size: 0.72rem; font-family: var(--mono); color: var(--muted); }
+.footer span { color: var(--dim); }
+
+code { font-family: var(--mono); font-size: 0.8rem; color: var(--web); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-logo">DBIT</div>
+  <div class="header-info">
+    <div class="society">The Bombay Salesian Society's</div>
+    <div class="college">Don Bosco Institute of Technology, Mumbai</div>
+    <div class="dept">Dept. of Electronics &amp; Telecommunication Engineering</div>
+  </div>
+  <div class="header-badge">INNOSPARK 2026</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Semester Workshop 2025–26</div>
+  <h1>SMART<span>PARK</span> PRO</h1>
+  <p class="hero-sub">IoT-Based Intelligent Parking Management System<br>Arduino · PCB Design · Web Portal</p>
+  <p style="text-align:center;margin:20px 0;"><a href="index (3).html" style="background:var(--arduino);color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem;">Go to Booking Portal</a></p>
+</section>
+
+<!-- TEAM -->
+<div class="team-row">
+  <div class="chip lead"><span class="dot"></span> 👑 Piyush Keni (Leader)</div>
+  <div class="chip"><span class="dot"></span> Shivam Patil</div>
+  <div class="chip"><span class="dot"></span> Rudra Pawar</div>
+  <div class="chip"><span class="dot"></span> Indrajeet Kale</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-tab active" data-tab="arduino" onclick="switchTab('arduino')">
+      <span>⚡</span><span>Arduino Programming</span><span class="tab-num">01</span>
+    </div>
+    <div class="nav-tab" data-tab="pcb" onclick="switchTab('pcb')">
+      <span>🔲</span><span>PCB Making</span><span class="tab-num">02</span>
+    </div>
+    <div class="nav-tab" data-tab="web" onclick="switchTab('web')">
+      <span>🌐</span><span>Website Designing</span><span class="tab-num">03</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     PAGE 1 — ARDUINO PROGRAMMING
+══════════════════════════════════ -->
+<section class="page active" id="page-arduino">
+  <div class="page-header">
+    <div>
+      <div class="trade-label green">Trade 01 / Arduino Programming</div>
+      <div class="page-title">ARDUINO<br>PROGRAMMING</div>
+    </div>
+    <div class="page-num">01</div>
+  </div>
+
+  <!-- ABSTRACT -->
+  <div class="card">
+    <div class="card-label green">Abstract</div>
+    <p>
+      <strong style="color:var(--text)">SmartPark Pro</strong> is an IoT system automating urban parking through number plate recognition and real-time slot monitoring. The hardware backbone uses an <strong style="color:var(--arduino)">Arduino Uno R3</strong> paired with <strong style="color:var(--arduino)">LDR sensors</strong> for occupancy detection and a <strong style="color:var(--arduino)">Servo SG90</strong> for gate control. After a customer pre-books via the web portal, a <strong style="color:var(--arduino)">Python + EasyOCR</strong> vision pipeline reads the arriving vehicle's plate, looks it up in Google Sheets, and signals the Arduino to open the gate and activate the guide LED. The project is validated on a 3-slot test bench and maps to <strong style="color:var(--arduino)">SDG 9</strong> (Innovation) and <strong style="color:var(--arduino)">SDG 11</strong> (Sustainable Cities).
+    </p>
+    <div class="tags">
+      <span class="tag green">Arduino Uno R3</span>
+      <span class="tag green">LDR Sensor</span>
+      <span class="tag green">Servo SG90</span>
+      <span class="tag green">Python</span>
+      <span class="tag green">EasyOCR</span>
+      <span class="tag green">DroidCam</span>
+      <span class="tag green">Google Sheets API</span>
+    </div>
+  </div>
+
+  <!-- PROBLEM + OBJECTIVES -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-label green">Problem Statement</div>
+      <p>Urban parking suffers from inefficiency and congestion. Drivers waste time searching for free slots while operators lack real-time visibility into occupancy — leading to traffic build-up and revenue loss.</p>
+    </div>
+    <div class="card">
+      <div class="card-label green">Project Objectives</div>
+      <ul class="blist">
+        <li class="green">Automate slot allocation via OCR number plate recognition</li>
+        <li class="green">Real-time LDR-based occupancy detection (100 ms polling)</li>
+        <li class="green">Cloud database integration for live slot updates</li>
+        <li class="green">QR-code pre-booking via web portal</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BLOCK DIAGRAM -->
+  <div class="card">
+    <div class="card-label green">Block Diagram — System Architecture</div>
+    <div class="block-diagram">
+      <div class="bd-title">SmartPark Pro — Dual Pipeline Architecture</div>
+      <div class="bd-cols">
+        <div>
+          <div class="bd-col-label green">🌐 Booking Pipeline</div>
+          <div class="bd-node filled-green">🌐 Web Booking Portal</div>
+          <div class="bd-arrow">↓</div>
+          <div class="bd-node filled-light">📊 Google Sheets Database</div>
+          <div class="bd-arrow">↓</div>
+          <div class="bd-node filled-light">🅿️ Slot Assigned to Plate</div>
+          <div class="bd-arrow">↓</div>
+          <div class="bd-node filled-green">💡 LDR Slot Monitoring</div>
+        </div>
+        <div>
+          <div class="bd-col-label blue">📷 Vision Pipeline</div>
+          <div class="bd-node filled-blue">📷 DroidCam Live Feed</div>
+          <div class="bd-arrow">↓</div>
+          <div class="bd-node filled-light">🔍 Python + EasyOCR</div>
+          <div class="bd-arrow">↓</div>
+          <div class="bd-node filled-light">🗂 Plate → DB Lookup</div>
+          <div class="bd-arrow">↓</div>
+          <div class="bd-node filled-blue">⚙️ Arduino: Gate + LED ON</div>
+        </div>
+      </div>
+      <div class="bd-footer">✅ Gate Opens &nbsp;·&nbsp; LED Guides Driver &nbsp;·&nbsp; LDR Confirms Exit &nbsp;·&nbsp; Sheet Updated</div>
+    </div>
+  </div>
+
+  <!-- CIRCUIT SCHEMATIC IMAGE -->
+  <div class="card">
+    <div class="card-label green">Circuit Schematic (KiCad)</div>
+    <div class="img-frame">
+      <img src="ppp.png" alt="KiCad schematic — Arduino Uno, LDR sensors, Servo, LEDs"/>
+      <div class="img-cap">Fig 1 — KiCad Schematic: Arduino Uno R3 · 3× LDR voltage dividers (10kΩ) · 3× 330Ω LED drivers · SG90 Servo connector (J1) · Decoupling capacitor (C1)</div>
+    </div>
+  </div>
+
+  <!-- ALGORITHM -->
+  <div class="card">
+    <div class="card-label green">Algorithm / Implementation Steps</div>
+    <ol class="algo" style="margin-top:8px;">
+      <li>
+        <div class="algo-n green">01</div>
+        <div>
+          <div class="algo-title">Customer Pre-Books Online</div>
+          <div class="algo-desc">User visits the web portal, selects a free slot (live from Google Sheets), enters name + vehicle number, pays ₹50. Booking is written to the cloud database and a QR code is generated from the plate number.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n green">02</div>
+        <div>
+          <div class="algo-title">Vehicle Arrives — OCR Scans Plate</div>
+          <div class="algo-desc">DroidCam app streams a live video feed from an Android phone to the Python script running on the PC. EasyOCR extracts the number plate text and a regex cleans it to standard format (e.g. MH12AB1234).</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n green">03</div>
+        <div>
+          <div class="algo-title">Plate Verified Against Database</div>
+          <div class="algo-desc">The extracted plate string is looked up in Google Sheets via the Apps Script API. If a matching pre-booking exists → verified ✅. If not → access denied, user alerted ❌.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n green">04</div>
+        <div>
+          <div class="algo-title">Gate Opens + LED Guide Activates</div>
+          <div class="algo-desc">Arduino receives a serial command. Servo SG90 rotates to open the barrier (~3 s after verification). The corresponding slot LED turns on to guide the driver to the correct spot.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n green">05</div>
+        <div>
+          <div class="algo-title">LDR Monitors Slot Occupancy</div>
+          <div class="algo-desc">Each LDR sits in a voltage-divider circuit on analog pins A0–A2. Arduino polls every 100 ms. When the LDR is covered (car present) → slot is marked OCCUPIED in the DB and shown on the web portal.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n green">06</div>
+        <div>
+          <div class="algo-title">Vehicle Exits — Database Updated</div>
+          <div class="algo-desc">LDR goes uncovered → Arduino signals exit. Gate closes (servo returns, auto-closes 5 s after opening), guide LED turns off, Google Sheets row is cleared, and slot appears FREE on the portal within 30 s.</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- TECH SPECS -->
+  <div class="card">
+    <div class="card-label green">Technical Specifications</div>
+    <div class="specs-list">
+      <div class="spec-item"><div class="spec-k">Microcontroller</div><div class="spec-v">Arduino Uno R3</div></div>
+      <div class="spec-item"><div class="spec-k">Slot Sensors</div><div class="spec-v">3× LDR + 10kΩ</div></div>
+      <div class="spec-item"><div class="spec-k">Gate Actuator</div><div class="spec-v">Servo SG90 (PWM)</div></div>
+      <div class="spec-item"><div class="spec-k">Indicator LEDs</div><div class="spec-v">3× LED + 330Ω</div></div>
+      <div class="spec-item"><div class="spec-k">OCR Engine</div><div class="spec-v">Python + EasyOCR</div></div>
+      <div class="spec-item"><div class="spec-k">Camera Feed</div><div class="spec-v">DroidCam (Android)</div></div>
+      <div class="spec-item"><div class="spec-k">Cloud Database</div><div class="spec-v">Google Sheets + GAS</div></div>
+      <div class="spec-item"><div class="spec-k">LDR Poll Rate</div><div class="spec-v">100 ms</div></div>
+      <div class="spec-item"><div class="spec-k">Web Refresh</div><div class="spec-v">30 s auto-poll</div></div>
+      <div class="spec-item"><div class="spec-k">OCR Accuracy</div><div class="spec-v">≥ 85% (good light)</div></div>
+      <div class="spec-item"><div class="spec-k">Gate Response</div><div class="spec-v">~3 s post-verify</div></div>
+      <div class="spec-item"><div class="spec-k">Test Scale</div><div class="spec-v">3-slot prototype</div></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="card">
+    <div class="card-label green">Results &amp; Outcomes</div>
+    <div class="results-grid">
+      <div class="result-box">
+        <div class="result-val green">≥85%</div>
+        <div class="result-desc">OCR plate recognition accuracy under good lighting conditions</div>
+      </div>
+      <div class="result-box">
+        <div class="result-val green">100ms</div>
+        <div class="result-desc">LDR real-time occupancy polling cycle</div>
+      </div>
+      <div class="result-box">
+        <div class="result-val green">~3s</div>
+        <div class="result-desc">Gate opens after plate verification; auto-closes at 5 s</div>
+      </div>
+      <div class="result-box">
+        <div class="result-val green">Live</div>
+        <div class="result-desc">Slot status synced to web portal via Google Sheets in real-time</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;">
+      <p><strong style="color:var(--text)">Conclusion:</strong> SmartPark Pro delivers a fully automated, low-cost parking solution combining IoT, computer vision, and cloud data management. It eliminates manual intervention and the prototype is validated on a 3-slot test bench, scalable to real-world facilities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PAGE 2 — PCB MAKING
+══════════════════════════════════ -->
+<section class="page" id="page-pcb">
+  <div class="page-header">
+    <div>
+      <div class="trade-label amber">Trade 02 / PCB Making</div>
+      <div class="page-title">PCB<br>MAKING</div>
+    </div>
+    <div class="page-num">02</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label amber">Overview</div>
+    <p>The SmartPark Pro hardware was designed end-to-end in <strong style="color:var(--pcb)">KiCad EDA</strong> — from schematic capture through PCB layout. The board integrates the Arduino Uno R3 footprint, three LDR sensor circuits, three LED indicators with current-limiting resistors, a servo connector, and a decoupling capacitor — all routed on a single copper layer for straightforward fabrication.</p>
+    <div class="tags">
+      <span class="tag amber">KiCad EDA</span>
+      <span class="tag amber">Single-Layer PCB</span>
+      <span class="tag amber">Through-Hole (THT)</span>
+      <span class="tag amber">Arduino Footprint</span>
+      <span class="tag amber">Gerber Export</span>
+    </div>
+  </div>
+
+  <!-- SCHEMATIC IMAGE -->
+  <div class="card">
+    <div class="card-label amber">Schematic Design</div>
+    <div class="img-frame">
+      <img src="ppp.png" alt="KiCad Schematic"/>
+      <div class="img-cap">Fig 1 — KiCad Schematic Editor: Arduino Uno R3 · 3× LDR voltage dividers (R4/R5/R6 = 10kΩ) on A0–A2 · 3× LEDs (D1/D2/D3) with 330Ω resistors (R7/R8/R9) · Servo header J1 · Decoupling cap C1 · PWR_FLAG net tie</div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-label muted">Schematic Component Breakdown</div>
+    <ul class="blist">
+      <li class="amber">3× LDR sensors in voltage-divider configuration — LDR in series with 10kΩ pull-down (R4, R5, R6), mid-point to analog inputs A0, A1, A2</li>
+      <li class="amber">3× LEDs (D1, D2, D3) with 330Ω current-limiting resistors (R7, R8, R9) connected to digital output pins</li>
+      <li class="amber">Servo SG90 3-pin header (J1) on PWM-capable digital pin for gate barrier control</li>
+      <li class="amber">Polarised electrolytic capacitor C1 across VCC/GND for power supply decoupling and noise filtering</li>
+      <li class="amber">PWR_FLAG symbols on both VCC and GND nets for clean ERC compliance in KiCad</li>
+    </ul>
+  </div>
+
+  <!-- PCB LAYOUT IMAGE -->
+  <div class="card">
+    <div class="card-label amber">PCB Layout (KiCad PCB Editor)</div>
+    <div class="img-frame">
+      <img src="kkk.png" alt="KiCad PCB Layout"/>
+      <div class="img-cap">Fig 2 — KiCad PCB Layout (F.Cu layer, blue traces): Arduino Uno R3 footprint centre-right · 3× LDR modules arranged in left column · 3× LED + resistor pairs at bottom-right · Servo header and cap at top</div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-label muted">Layout Design Decisions</div>
+    <ul class="blist">
+      <li class="amber">Arduino Uno R3 (A1) placed centrally to keep trace lengths short to all peripheral components</li>
+      <li class="amber">LDR sensor pads (LDR1, LDR2, LDR3) arranged in a vertical left column mirroring the 3 physical parking slots</li>
+      <li class="amber">LED indicators (D1, D2, D3) and resistors grouped at bottom-right for easy panel-mount access</li>
+      <li class="amber">Servo connector (J1) and decoupling capacitor (C1) placed at top for clean power entry routing</li>
+      <li class="amber">All traces routed on F.Cu (front copper) single layer — no vias required, suitable for DIY etching or low-cost fab</li>
+    </ul>
+  </div>
+
+  <!-- MY IDEAS FOR PCB MAKING -->
+  <div class="card">
+    <div class="card-label amber">AI-Generated Ideas for PCB Enhancement</div>
+    <p>As an AI assistant, here are some innovative ideas to improve the SmartPark Pro PCB design for better performance, scalability, and manufacturability:</p>
+    <ul class="blist">
+      <li class="amber"><strong>Multi-Layer Transition:</strong> Upgrade to a 2-layer PCB for better EMI shielding and ground plane integrity, reducing noise in LDR readings</li>
+      <li class="amber"><strong>Integrated Power Regulation:</strong> Add an LM7805 voltage regulator footprint for stable 5V supply, eliminating reliance on Arduino's onboard regulator</li>
+      <li class="amber"><strong>Expansion Headers:</strong> Include I2C and SPI headers for future sensor additions like ultrasonic distance sensors or RFID readers</li>
+      <li class="amber"><strong>LED Current Limiting:</strong> Replace fixed resistors with PWM-controlled MOSFETs for adjustable LED brightness based on ambient light</li>
+      <li class="amber"><strong>Debugging Features:</strong> Add test points and a programming header for easier firmware updates without removing the Arduino</li>
+      <li class="amber"><strong>Thermal Management:</strong> Include heatsinks or thermal vias near power components to handle extended operation</li>
+    </ul>
+    <div class="tags">
+      <span class="tag amber">Innovation</span>
+      <span class="tag amber">Scalability</span>
+      <span class="tag amber">EMI Reduction</span>
+      <span class="tag amber">Future-Proofing</span>
+    </div>
+  </div>
+
+  <!-- PCB PROCESS -->
+  <div class="card">
+    <div class="card-label amber">PCB Design Workflow</div>
+    <ol class="algo" style="margin-top:8px;">
+      <li>
+        <div class="algo-n amber">01</div>
+        <div>
+          <div class="algo-title">Schematic Capture in KiCad Schematic Editor</div>
+          <div class="algo-desc">Placed Arduino Uno R3 symbol, LDR + resistor voltage-divider subcircuits, LED + resistor output stages, servo header, power symbols (VCC, GND, PWR_FLAG), and net labels for all connections.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n amber">02</div>
+        <div>
+          <div class="algo-title">ERC Check + Netlist Generation</div>
+          <div class="algo-desc">Ran Electrical Rules Check (ERC) to catch unconnected pins and floating power nets. Added PWR_FLAG net ties to resolve power warnings. Exported the netlist for import into PCB Editor.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n amber">03</div>
+        <div>
+          <div class="algo-title">Footprint Assignment</div>
+          <div class="algo-desc">Assigned KiCad footprint library entries to every symbol: Arduino_UNO_R3 for the MCU, Conn_01x03_Pin for the servo header, through-hole pads for LDRs, LEDs, and axial resistors.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n amber">04</div>
+        <div>
+          <div class="algo-title">Component Placement</div>
+          <div class="algo-desc">Arranged footprints logically on the board with the Arduino centred, LDR modules in a column on the left to reflect the physical slot layout, and LEDs grouped for easy indicator visibility.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n amber">05</div>
+        <div>
+          <div class="algo-title">Manual Trace Routing on F.Cu</div>
+          <div class="algo-desc">Routed all signal and power connections on the front copper layer. VCC and GND traces given wider width for current capacity. Maintained ≥0.25 mm clearance throughout.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n amber">06</div>
+        <div>
+          <div class="algo-title">DRC + Gerber File Export</div>
+          <div class="algo-desc">Design Rule Check (DRC) passed with zero clearance violations. Exported Gerber files (F.Cu, Edge.Cuts, F.Silkscreen) and drill file — ready for PCB fabrication or in-house etching.</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- PCB SPECS -->
+  <div class="card">
+    <div class="card-label amber">PCB Specifications</div>
+    <div class="specs-list">
+      <div class="spec-item"><div class="spec-k">EDA Tool</div><div class="spec-v">KiCad 7 / 8</div></div>
+      <div class="spec-item"><div class="spec-k">Board Layers</div><div class="spec-v">Single-sided (F.Cu)</div></div>
+      <div class="spec-item"><div class="spec-k">Component Type</div><div class="spec-v">Through-hole (THT)</div></div>
+      <div class="spec-item"><div class="spec-k">MCU Footprint</div><div class="spec-v">Arduino_UNO_R3</div></div>
+      <div class="spec-item"><div class="spec-k">Sensor Footprints</div><div class="spec-v">3× LDR through-hole</div></div>
+      <div class="spec-item"><div class="spec-k">Servo Connector</div><div class="spec-v">Conn_01x03_Pin</div></div>
+      <div class="spec-item"><div class="spec-k">Passives</div><div class="spec-v">6× R, 3× LED, 1× C</div></div>
+      <div class="spec-item"><div class="spec-k">Min Clearance</div><div class="spec-v">≥ 0.25 mm</div></div>
+      <div class="spec-item"><div class="spec-k">Output Files</div><div class="spec-v">Gerber + NC Drill</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PAGE 3 — WEBSITE DESIGNING
+══════════════════════════════════ -->
+<section class="page" id="page-web">
+  <div class="page-header">
+    <div>
+      <div class="trade-label blue">Trade 03 / Website Designing</div>
+      <div class="page-title">WEBSITE<br>DESIGNING</div>
+    </div>
+    <div class="page-num">03</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label blue">Overview</div>
+    <p>The SmartPark Pro web portal is the customer-facing booking interface built with <strong style="color:var(--web)">vanilla HTML5, CSS3, and ES6+ JavaScript</strong> — no frameworks, no build tools. It connects to a <strong style="color:var(--web)">Google Apps Script</strong> backend that reads and writes to Google Sheets as a free cloud database. On payment confirmation, a <strong style="color:var(--web)">QR code</strong> is generated from the vehicle plate number, which the driver shows at the gate for OCR verification.</p>
+    <div class="tags">
+      <span class="tag blue">HTML5</span>
+      <span class="tag blue">CSS3</span>
+      <span class="tag blue">Vanilla JS ES6+</span>
+      <span class="tag blue">Google Apps Script</span>
+      <span class="tag blue">Google Sheets</span>
+      <span class="tag blue">QRCode.js</span>
+      <span class="tag blue">Fetch API</span>
+      <span class="tag blue">Python Flask</span>
+    </div>
+  </div>
+
+  <!-- FEATURES + STACK -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-label blue">Key Features</div>
+      <ul class="blist">
+        <li class="blue">Live slot availability from Google Sheets, auto-refreshed every 30 s</li>
+        <li class="blue">Interactive slot cards showing FREE / OCCUPIED with real-time DOM updates</li>
+        <li class="blue">Form validation — name required, vehicle plate regex enforced (MH12AB1234 format)</li>
+        <li class="blue">QR code generated from plate number shown instantly after payment</li>
+        <li class="blue">Silent background backup POST to local Flask server (bookings.txt)</li>
+        <li class="blue">Responsive layout — single-column slots on mobile (&lt;500px breakpoint)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label blue">Tech Stack</div>
+      <ul class="blist">
+        <li class="blue"><strong style="color:var(--text)">Structure:</strong> HTML5 with semantic markup</li>
+        <li class="blue"><strong style="color:var(--text)">Styles:</strong> CSS3 — custom properties, Grid, Flexbox, transitions</li>
+        <li class="blue"><strong style="color:var(--text)">Logic:</strong> Vanilla JS — async/await, Fetch API, DOM manipulation</li>
+        <li class="blue"><strong style="color:var(--text)">Backend:</strong> Google Apps Script deployed as Web App (GET/POST)</li>
+        <li class="blue"><strong style="color:var(--text)">Database:</strong> Google Sheets — free, serverless, cloud-synced</li>
+        <li class="blue"><strong style="color:var(--text)">Libraries:</strong> qrcode.js v1.4.4 via CDN (canvas-based QR)</li>
+        <li class="blue"><strong style="color:var(--text)">Local backup:</strong> Python Flask server on port 5000</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DATA FLOW -->
+  <div class="card">
+    <div class="card-label blue">Booking Data Flow</div>
+    <p style="font-size:0.8rem; color:var(--muted); margin-bottom:14px;">How a user booking flows from button click to gate opening:</p>
+    <div class="pipeline">
+      <div class="pipe-node">Select slot</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">Enter name + plate</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">JS validates form</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">POST → GAS endpoint</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">Row written to Sheets</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">QR code generated</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">OCR reads plate at gate</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">Arduino opens gate ✅</div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="card">
+    <div class="card-label blue">How the Slot Refresh Loop Works</div>
+    <ol class="algo" style="margin-top:8px;">
+      <li>
+        <div class="algo-n blue">01</div>
+        <div>
+          <div class="algo-title">Page Load → updateUI() fires immediately</div>
+          <div class="algo-desc"><code>window.onload = updateUI</code> ensures slot status is fetched as soon as the page loads — no stale data shown to the user.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n blue">02</div>
+        <div>
+          <div class="algo-title">GET Request to Google Apps Script</div>
+          <div class="algo-desc">Fetch hits the GAS Web App URL. The Apps Script reads all rows from the Google Sheet and returns a JSON array. Each row has the slot number at index [3].</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n blue">03</div>
+        <div>
+          <div class="algo-title">Parse Occupied Slot Numbers</div>
+          <div class="algo-desc"><code>data.map(r =&gt; r[3].toString())</code> extracts occupied slot numbers into a string array for O(1) lookup with <code>Array.includes()</code>.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n blue">04</div>
+        <div>
+          <div class="algo-title">Update DOM Slot Cards (1–3)</div>
+          <div class="algo-desc">Loop adds <code>.occupied</code> CSS class, sets status text to OCCUPIED, and removes the click handler for taken slots. Free slots get the handler restored and show FREE.</div>
+        </div>
+      </li>
+      <li>
+        <div class="algo-n blue">05</div>
+        <div>
+          <div class="algo-title">setInterval — Auto-refresh every 30 s</div>
+          <div class="algo-desc"><code>setInterval(updateUI, 30000)</code> keeps the portal in sync with the physical parking lot without requiring a page reload.</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- DESIGN DECISIONS -->
+  <div class="card">
+    <div class="card-label blue">Key Design Decisions</div>
+    <ul class="blist">
+      <li class="blue"><strong style="color:var(--text)">No-CORS POST mode:</strong> GAS endpoints don't return CORS headers for cross-origin requests from a local file. Booking POST uses <code>mode: "no-cors"</code> — the response body is opaque but the Sheets write still succeeds.</li>
+      <li class="blue"><strong style="color:var(--text)">Fire-and-forget silent backup:</strong> <code>saveTxtSilently()</code> POSTs to a local Flask server with a 4 s AbortSignal timeout and <code>.catch(() =&gt; {})</code> — any failure is silently swallowed so user experience is never affected.</li>
+      <li class="blue"><strong style="color:var(--text)">QR encoded from plate, not booking ID:</strong> The QR code encodes the vehicle number plate directly, so both EasyOCR and the QR scanner reference the same string — no separate ID mapping layer needed.</li>
+      <li class="blue"><strong style="color:var(--text)">CSS custom properties for theming:</strong> All brand colours defined as <code>--primary</code>, <code>--success</code>, <code>--danger</code> in <code>:root</code> — the entire palette can be changed from one declaration.</li>
+      <li class="blue"><strong style="color:var(--text)">Regex plate validation:</strong> <code>/^[A-Z]{2}[0-9]{2}[A-Z]{1,3}[0-9]{4}$/</code> enforces the standard Indian vehicle plate format before any API call is made, preventing junk data in the database.</li>
+    </ul>
+  </div>
+
+  <!-- WEB SPECS -->
+  <div class="card">
+    <div class="card-label blue">Website Specifications</div>
+    <div class="specs-list">
+      <div class="spec-item"><div class="spec-k">Languages</div><div class="spec-v">HTML5 / CSS3 / JS ES6+</div></div>
+      <div class="spec-item"><div class="spec-k">Framework</div><div class="spec-v">None (Vanilla)</div></div>
+      <div class="spec-item"><div class="spec-k">Backend</div><div class="spec-v">Google Apps Script</div></div>
+      <div class="spec-item"><div class="spec-k">Database</div><div class="spec-v">Google Sheets</div></div>
+      <div class="spec-item"><div class="spec-k">QR Library</div><div class="spec-v">qrcode.js v1.4.4</div></div>
+      <div class="spec-item"><div class="spec-k">Local Backup</div><div class="spec-v">Python Flask (:5000)</div></div>
+      <div class="spec-item"><div class="spec-k">Slot Refresh</div><div class="spec-v">Every 30 s (setInterval)</div></div>
+      <div class="spec-item"><div class="spec-k">Booking Fee</div><div class="spec-v">₹50 per reservation</div></div>
+      <div class="spec-item"><div class="spec-k">Plate Validation</div><div class="spec-v">Regex (Indian format)</div></div>
+      <div class="spec-item"><div class="spec-k">Responsive</div><div class="spec-v">Yes — mobile breakpoint 500px</div></div>
+      <div class="spec-item"><div class="spec-k">Parking Slots</div><div class="spec-v">P-01, P-02, P-03</div></div>
+      <div class="spec-item"><div class="spec-k">POST Mode</div><div class="spec-v">no-cors (GAS compat.)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span>DBIT EXTC</span> &nbsp;·&nbsp; SmartPark Pro — IoT Parking System &nbsp;·&nbsp;
+  <span>INNOSPARK 2026</span> &nbsp;·&nbsp;
+  Piyush Keni &nbsp;|&nbsp; Shivam Patil &nbsp;|&nbsp; Rudra Pawar &nbsp;|&nbsp; Indrajeet Kale
+</footer>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.nav-tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.tab === tab)
+  );
+  document.querySelectorAll('.page').forEach(p =>
+    p.classList.toggle('active', p.id === 'page-' + tab)
+  );
+  document.querySelector('.nav-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
