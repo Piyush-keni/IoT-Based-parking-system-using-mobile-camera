@@ -6,7 +6,7 @@
 **Team Members:**
 Role: Project Leader 👑<br>
 **Name: Piyush Keni**<br>
-Tasks: System Architecture, Backend Development, PCB Layout (KiCad), Google Sheets Integration (via Google Apps Script),Camera Intergration via openCV.****
+Tasks: System Architecture, Backend Development, PCB Layout (KiCad), Google Sheets Integration (via Google Apps Script),Camera Intergration via openCV.
 
 Role: Team Member<br>
 **Name: Shivam Patil**<br>
