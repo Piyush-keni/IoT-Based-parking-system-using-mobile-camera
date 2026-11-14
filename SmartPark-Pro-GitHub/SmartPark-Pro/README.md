@@ -4,22 +4,24 @@
 > Don Bosco Institute of Technology, Mumbai (Affiliated to University of Mumbai)
 
 **Team Members:**
-Role: Project Leader 👑
-**Name: Piyush Keni**
-Tasks: System Architecture, Backend Development, PCB Layout (KiCad), Google Sheets Integration (via Google Apps Script),Camera Intergration via openCV .
+Role: Project Leader 👑<br>
+**Name: Piyush Keni**<br>
+Tasks: System Architecture, Backend Development, PCB Layout (KiCad), Google Sheets Integration (via Google Apps Script),Camera Intergration via openCV.****
 
-Role: Team Member
-**Name: Shivam Patil**
-Tasks: Soldering, Testing & Quality Assurance
+Role: Team Member<br>
+**Name: Shivam Patil**<br>
+Tasks: Soldering, Testing & Quality Assurance<br>
 
-Role: Team Member
-**Name: Rudra Pawar**
-Tasks: PCB Fabrication, Design Modeling ,Sensor Mounting & CAD Fitment Analysis
+Role: Team Member<br>
+**Name: Rudra Pawar**<br>
+Tasks: PCB Fabrication, Design Modeling ,Sensor Mounting & CAD Fitment Analysis<br>
 
-**Role: Team Member**
-Name: Indrajeet Kale
-Tasks: Frontend Development, Mechanical Drilling, Design Modeling
+**Role: Team Member**<br>
+Name: Indrajeet Kale<br>
+Tasks: Frontend Development, Mechanical Drilling, Design Modeling<br>
 
+
+**Cross-Functional Knowledge Transfer: While individual modules are assigned to specific members to optimize workflow efficiency, the team conducts peer-to-peer knowledge-sharing sessions upon phase completion. This ensures every member maintains end-to-end technical proficiency across the entire hardware and software architecture.** <br>
 ---
 
 ## 📌 Project Overview
@@ -177,9 +179,9 @@ Then open `web/index.html` in a browser to make bookings.
 
 ---
 
-## 📸 Screenshots
+## 📸 Demonstration link.
 
-> *(Add screenshots of your web UI and camera feed here)*
+https://youtu.be/ht5OH55FEMU?si=mxZw4bW1DcZeIuRV
 
 ---
 
