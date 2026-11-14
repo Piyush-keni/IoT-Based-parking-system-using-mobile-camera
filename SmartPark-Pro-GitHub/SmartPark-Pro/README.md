@@ -10,15 +10,15 @@ Tasks: System Architecture, Backend Development, PCB Layout (KiCad), Google Shee
 
 Role: Team Member<br>
 **Name: Shivam Patil**<br>
-Tasks: Soldering, Testing & Quality Assurance<br>
+Tasks: Soldering, Testing & Quality Assurance <br>
 
 Role: Team Member<br>
 **Name: Rudra Pawar**<br>
-Tasks: PCB Fabrication, Design Modeling ,Sensor Mounting & CAD Fitment Analysis<br>
+Tasks: PCB Fabrication, Frontend Development ,Sensor Mounting & CAD Fitment Analysis <br>
 
 **Role: Team Member**<br>
 Name: Indrajeet Kale<br>
-Tasks: Frontend Development, Mechanical Drilling, Design Modeling<br>
+Tasks: Mechanical Drilling, Design Modeling<br>
 
 
 **Cross-Functional Knowledge Transfer: While individual modules are assigned to specific members to optimize workflow efficiency, the team conducts peer-to-peer knowledge-sharing sessions upon phase completion. This ensures every member maintains end-to-end technical proficiency across the entire hardware and software architecture.** <br>
