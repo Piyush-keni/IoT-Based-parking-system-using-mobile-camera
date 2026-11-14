@@ -1,15 +1,24 @@
 # 🅿️ SmartPark Pro — IoT-Based Smart Parking System
 
-> **Final Year Project | Department of Electronics and Telecommunication Engineering**
+> **First Year Project | Department of Electronics and Telecommunication Engineering**
 > Don Bosco Institute of Technology, Mumbai (Affiliated to University of Mumbai)
 
 **Team Members:**
-| Role | Name |
-|------|------|
-| 👑 Leader | Piyush Keni |
-| Member | Shivam Patil |
-| Member | Rudra Pawar |
-| Member | Indrajeet Kale |
+Role: Project Leader 👑
+**Name: Piyush Keni**
+Tasks: System Architecture, Backend Development, PCB Layout (KiCad), Google Sheets Integration (via Google Apps Script),Camera Intergration via openCV .
+
+Role: Team Member
+**Name: Shivam Patil**
+Tasks: Soldering, Testing & Quality Assurance
+
+Role: Team Member
+**Name: Rudra Pawar**
+Tasks: PCB Fabrication, Design Modeling ,Sensor Mounting & CAD Fitment Analysis
+
+**Role: Team Member**
+Name: Indrajeet Kale
+Tasks: Frontend Development, Mechanical Drilling, Design Modeling
 
 ---
 
